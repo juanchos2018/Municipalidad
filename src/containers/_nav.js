@@ -37,7 +37,7 @@ export default [
       {
         _name: 'CSidebarNavItem',
         name: 'Noticias',    
-        to: '/theme/documentocarpeta',      
+        to: '/inicio/notices',      
         icon: 'cil-pencil'
       },
       {
