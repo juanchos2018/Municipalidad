@@ -22,7 +22,7 @@ export default [
       {
         _name: 'CSidebarNavItem',
         name: 'Mapa de Calor',
-        to: '/theme/caso', 
+        to: '/inicio/mapacalor', 
         icon: 'cil-drop'
       },
      

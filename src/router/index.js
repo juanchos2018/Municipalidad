@@ -27,6 +27,8 @@ const Register = () =>
     const ListMapa =() => import('@/views/mapa/List')
     const ListNotices =() => import('@/views/notice/list')    
     const AddNotices =() => import('@/views/notice/Add.vue')
+    const MapCalor =() => import('@/views/mapa/MapCalor.vue')
+    
 
 
 Vue.use(Router);
@@ -71,6 +73,11 @@ function configRoutes() {
                     path: 'mapa',          
                     name: 'mapa',
                     component: ListMapa
+                },
+                {             
+                    path: 'mapacalor',          
+                    name: 'mapacalor',
+                    component: MapCalor
                 },
                 {             
                     path: 'notices',          
