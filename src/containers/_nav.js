@@ -17,48 +17,48 @@ export default [
         _name: 'CSidebarNavItem',
         name: 'Mapa',
         to: '/inicio/mapa',
-        icon: 'cil-drop'
+        icon: 'cilLocationPin'
       },
       {
         _name: 'CSidebarNavItem',
         name: 'Mapa de Calor',
         to: '/inicio/mapacalor', 
-        icon: 'cil-drop'
+        icon: 'cilLocationPin'
       },
      
      
       {
         _name: 'CSidebarNavItem',
         name: 'Usuarios',    
-        to: '/theme/documentocarpeta',      
-        icon: 'cil-pencil'
+        to: '/inicio/users',      
+        icon: 'cilUser'
       },
 
       {
         _name: 'CSidebarNavItem',
         name: 'Noticias',    
         to: '/inicio/notices',      
-        icon: 'cil-pencil'
+        icon: 'cilSpreadsheet'
       },
       {
         _name: 'CSidebarNavItem',
         name: 'Numeros de Ayuda',    
-        to: '/theme/documentocarpeta',      
-        icon: 'cil-pencil'
+        to: '/inicio/helpnumber',      
+        icon: 'cilPhone'
       },
 
       {
         _name: 'CSidebarNavItem',
         name: 'Alertas',    
-        to: '/theme/documentocarpeta',      
-        icon: 'cil-pencil'
+        to: '/inicio/alerts',      
+        icon: 'cilWarning'
       },
 
       {
         _name: 'CSidebarNavItem',
         name: 'Reportes',    
-        to: '/theme/documentocarpeta',      
-        icon: 'cil-pencil'
+        to: '/inicio/inicio',      
+        icon: 'cil-chart'
       },
 
     ]

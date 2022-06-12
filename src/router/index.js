@@ -28,6 +28,9 @@ const Register = () =>
     const ListNotices =() => import('@/views/notice/list')    
     const AddNotices =() => import('@/views/notice/Add.vue')
     const MapCalor =() => import('@/views/mapa/MapCalor.vue')
+    const Usuarios =() => import('@/views/usuario/List.vue')
+    const HelpNumber =() => import('@/views/helpNumber/List.vue')
+    const ListIncidence =() => import('@/views/alert/List.vue')
     
 
 
@@ -85,9 +88,24 @@ function configRoutes() {
                     component: ListNotices
                 },
                 {             
+                    path: 'users',          
+                    name: 'users',
+                    component: Usuarios
+                },
+                {             
                   path: 'notice-add',          
                   name: 'noticiasAdd',
                   component: AddNotices
+                },
+                {             
+                    path: 'helpnumber',          
+                    name: 'helpnumber',
+                    component: HelpNumber
+                },
+                {             
+                    path: 'alerts',          
+                    name: 'alerts',
+                    component: ListIncidence
                 },
                 {
                     path: "404",

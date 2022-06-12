@@ -105,9 +105,9 @@ export default {
   },
   mounted(){
     
-    this.$refs.mapRef.$mapPromise.then((map) => {
-      map.panTo({lat: 1.38, lng: 103.80})
-    })
+    // this.$refs.mapRef.$mapPromise.then((map) => {
+    //   map.panTo({lat: 1.38, lng: 103.80})
+    // })
      EventBus.$on('Reload', () => {
       this.reload(); 
       console.log("reload")

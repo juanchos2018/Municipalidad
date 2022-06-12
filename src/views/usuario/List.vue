@@ -2,81 +2,108 @@
   <div>
     <CCard>
       <CCardHeader>
-        <CIcon name="cil-justify-center"/>
+        <CIcon name="cil-justify-center" />
         <strong>Usuarios </strong>
-        <div class="card-header-actions">       
-             <CButton  @click="modalUsuario" block color="primary">Nuevo Usuario</CButton>         
+        <div class="card-header-actions">
+          <!-- <CButton  @click="modalUsuario" block color="primary">Nuevo Usuario</CButton>          -->
         </div>
-      </CCardHeader>  
+      </CCardHeader>
+
+      <CCardBody>
+        <CDataTable
+          :hover="hover"
+          :striped="striped"
+          :border="border"
+          :small="small"
+          :fixed="fixed"
+          :items="items"
+          :fields="fields"
+          :items-per-page="small ? 10 : 5"
+          :dark="dark"
+          pagination
+        >
+          <template #accion="{ item }">
+            <td>            
+              <b-button variant="danger" @click="ver(item)">
+                <b-icon icon="trash-fill"></b-icon>
+              </b-button>          
+            </td>
+          </template>
+        </CDataTable>
+      </CCardBody>
     </CCard>
-     <CRow>
-      <CCol sm="6" md="4" v-for="item in items" :key="item.id_elemento">
-         <CCard accent-color="info">
-          <CCardHeader>Usuario</CCardHeader>
-          <CCardBody>
-              <label for="">  {{item.nombre_usuario}}</label> <br>
-              <label for="">  {{item.nombre_tipo}}</label>
-            </CCardBody>
-        </CCard>
-      </CCol>    
-    </CRow>
 
-    <ModalUsuario  v-on:ListUsuario="ListUsuario"  />
-
+    <!-- <ModalUsuario  v-on:ListUsuario="ListUsuario"  /> -->
   </div>
 </template>
 
 <script>
 const axios = require("axios").default;
-import EventBus from '@/assets/js/EventBus';
-
+import EventBus from "@/assets/js/EventBus";
 import { mapState } from "vuex";
-import ModalUsuario from './components/ModalUsuario'
+//import ModalUsuario from './components/ModalUsuario'
 
 export default {
-  name: 'Cards',
-  components:{
-    ModalUsuario
+  name: "Cards",
+  props: {
+    caption: {
+      type: String,
+      default: "usuarios",
+    },
+    hover: Boolean,
+    striped: Boolean,
+    border: Boolean,
+    small: Boolean,
+    fixed: Boolean,
+    dark: Boolean,
   },
-  data: function () {
-    return {        
-      modal:false,  
-      items:[]  
-   }
+  components: {
+    //ModalUsuario
+  },
+  data() {
+    return {
+      modal: false,
+      items: [],
+      fields: [
+        "name",
+        "last_name",
+        "location",
+        "phone",
+        "email",
+        "number_document",
+        "accion",
+      ],
+    };
   },
   mounted() {
-    this.ListUsuario();
+    this.get();
   },
   computed: {
-    ...mapState(["url_base"])  
+    ...mapState(["url_base"]),
   },
   methods: {
-     modalUsuario() {
-       EventBus.$emit('ModalUsuario');
+    modalUsuario() {
+      EventBus.$emit("ModalUsuario");
     },
     CerrarModal() {
-      this.primaryModal = false;      
+      this.primaryModal = false;
     },
-    ListUsuario(){  
-     let me=this;
-     let url = this.url_base + "usuario-all";
-        axios({
-            method: "GET",
-            url: url, 
-        })
-        .then(function (response) {
-            //console.log(response)
+    ver(id) {},
+    get() {
+      let me = this;
+      let url = this.url_base + "user";
+      axios({
+        method: "GET",
+        url: url,
+      }).then(function (response) {
+        //console.log(response)
         if (response.data.status == 200) {
-            //me.rows = response.data.result.total;
-            me.items = response.data.result;
+          me.items = response.data.result;
         } else {
-        // Swal.fire({ icon: 'error', text: 'A Ocurrido un error', timer: 2000,})
-            alert("error");
-            
+          alert("error");
         }
-        })
-    }
-   
+      });
+    },
   },
-}
+};
 </script>

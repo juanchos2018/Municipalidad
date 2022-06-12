@@ -4,7 +4,7 @@
     <CCardHeader>
       <slot name="header">
         <CIcon name="cil-grid"/> {{caption}}
-        <CButton color="info" class="float-right" @click="add" >Nuevo</CButton>
+        <CButton color="info" class="float-right" @click="add" >Agregar</CButton>
       </slot>
     </CCardHeader>
     <CCardBody>
@@ -22,49 +22,47 @@
       >
         <template #accion="{item}">
           <td>           
-              <b-button variant="info" @click="ver(item)">
-                <svg data-v-41be6633="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="tropical storm" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-tropical-storm mx-auto b-icon bi"><g data-v-41be6633=""><path d="M8 9.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M9.5 2c-.9 0-1.75.216-2.501.6A5 5 0 0 1 13 7.5a6.5 6.5 0 1 1-13 0 .5.5 0 0 1 1 0 5.5 5.5 0 0 0 8.001 4.9A5 5 0 0 1 3 7.5a6.5 6.5 0 0 1 13 0 .5.5 0 0 1-1 0A5.5 5.5 0 0 0 9.5 2zM8 3.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path></g></svg>
-              </b-button>  
-             <!-- <CButton color="info" @click="ver(item)" >ver</CButton> -->
+            
+                <b-button variant="warning" @click="ver(item)">
+                <b-icon icon="pencil-square"></b-icon>
+              </b-button> 
+            <b-button variant="danger" @click="ver(item)" style="margin-left:10px">
+                <b-icon icon="trash-fill"></b-icon>
+              </b-button> 
           </td>
         </template>
       </CDataTable>
     </CCardBody>
   </CCard>
-  <ModalNotice  @CerrarModal="CerrarModal"   v-on:get="get"  />
+    <ModalNumber  @CerrarModal="CerrarModal"  v-on:get="get"  />
+
 </div>
  
 </template>
 
 <script>
-import Vue from "vue";
-import * as VueGoogleMaps from "vue2-google-maps";
 
-Vue.use(VueGoogleMaps, {
-  load: {
-    key: "AIzaSyCM8Ig4QP2vkHy8ln4l5lvjtloSH8AU50Q",
-    libraries: "places",
-  },
-});
+import usersData from '../users/UsersData'
 import EventBus from '@/assets/js/EventBus';
 import { mapState } from "vuex";
-import ModalNotice from './components/ModalNotice'
 const axios = require("axios").default;
+import ModalNumber from './components/ModalNumber'
+
 export default {
   name: 'Table',
    components:{
-    ModalNotice
+    ModalNumber
   },
   props: {    
     fields: {
       type: Array,
       default () {
-        return ['id', 'title', 'description','date', 'location','accion']
+        return ['grupo', 'unid', 'phone', 'photo','accion']
       }
     },
     caption: {
       type: String,
-      default: 'Noticias'
+      default: 'Numeros de ayuda'
     },
     hover: Boolean,
     striped: Boolean,
@@ -75,42 +73,45 @@ export default {
   },
   data(){
       return{
-         items:[],
+          items:[],
+          primaryModal:false,
       }
   },
   mounted () {
     this.get();
-    
-    
   },
    computed: {
     ...mapState(["url_base"])  
   },
   methods: {    
-    add(){    
-         EventBus.$emit('ModalNoticeShow');
+    add(){     
+      console.log("click");
+        EventBus.$emit('ModalNumberShow');
+    },
+     CerrarModal() {
+      this.primaryModal = false;      
     },
     get(){
-       let me=this;
-       let url = this.url_base + "notice";
+       let me  = this;
+       let url = me.url_base + "helpnumber";
         axios({
             method: "GET",
             url: url, 
         })
         .then(function (response) {
             //console.log(response)
-        if (response.data.status == 200) {        
+        if (response.data.status == 200) {           
             me.items = response.data.result;
-        } else {        
-            alert("lista vacia");            
-        }
+        } else {
+            me.items=[];
+         // Swal.fire({ icon: 'error', text: 'A Ocurrido un error', timer: 2000,})
+            //alert("error");
+            
+            }
         })
     },
     ver(id){
 
-    },
-    CerrarModal() {
-      //this.primaryModal = false;      
     },  
     getBadge (status) {
       return status === 'Active' ? 'success'
