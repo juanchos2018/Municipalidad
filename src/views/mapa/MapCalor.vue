@@ -19,43 +19,43 @@ import VueGoogleHeatmap from "vue-google-heatmap";
 Vue.use(VueGoogleHeatmap, {
   apiKey: "AIzaSyCM8Ig4QP2vkHy8ln4l5lvjtloSH8AU50Q",
 });
-
+import EventBus from '@/assets/js/EventBus';
+import { mapState } from "vuex";
+const axios = require("axios").default;
 export default {
   data() {
     return {
-      points: [
-        { lat: -18.0098285, lng: -70.2426874 },
-        { lat: -18.0098285, lng: -70.2426874 },
-        { lat: -18.0099295, lng: -70.2426884 },
-        { lat: -18.0099296, lng: -70.2426884 },
-        { lat: -18.0098297, lng: -70.2426894 },
-        { lat: -18.0098298, lng: -70.2426894 },
-        { lat: -18.0098299, lng: -70.2426895 },
-      ],
+      points: [ ],
       center: {
         lat: -18.0317588,
         lng: -70.2556131,
-      },
-      markers: [
-        {
-          position: { lat: -18.0287232, lng: -70.2675 },
-          weight: 100,
-          title: "aquie stoy weee",
-        },
-        {
-          position: { lat: -18.0587232, lng: -70.6675 },
-          weight: 100,
-          title: "AYUDA WEEEE",
-        },
-        {
-          position: { lat: -18.0557232, lng: -70.6675 },
-          weight: 100,
-          title: "AYUDA WEESDSDFEE",
-        },
-      ],
+      },      
     };
   },
-  computed: {},
+  computed: {
+    ...mapState(["url_base"])  
+  },
+  mounted () {
+    this.get();   
+  },
+  methods: {    
+       get(){
+        let me=this;
+        let url = me.url_base + "incidence-calor";
+          axios({
+              method: "GET",
+              url: url, 
+          })
+          .then(function (response) {
+              console.log(response)
+          if (response.data.status == 200) {        
+              me.points = response.data.result;
+          } else {        
+              alert("lista vacia");            
+          }
+        })
+    },
+  }
 };
 </script>
 

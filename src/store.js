@@ -5,9 +5,11 @@ Vue.use(Vuex)
 const state = {
   sidebarShow: 'responsive',
   sidebarMinimize: false,
-  url_base:'http://192.168.1.209:8000/',
+  //url_base:'http://192.168.1.209:8000/',
+  url_base:'http://reporte.juanchosserver.shop/',
+  //  http://reporte.juanchosserver.shop
   url_maps:'https://maps.googleapis.com/maps/api/geocode/',
- // url_base:'http://lumenges.juanchosserver.shop/',
+
   usuario: null,
   nombreUsuario: '',
   idUsuario: '',
